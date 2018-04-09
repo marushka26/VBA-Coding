@@ -1,0 +1,32 @@
+Sub OrgChart()
+
+Dim SaLyt As SmartArtLayouts 'object for layouts
+Dim node As Object
+Set SaLyt = Application.SmartArtLayouts 'Assgn the layout
+Set sa = Application.SmartArtLayouts(88)
+    'MsgBox "SmartArt Layout" & SaLyt(i).Name
+Set sh = ActiveSheet.Shapes.AddSmartArt(sa)
+
+With sh
+            .Name = "Org Chart"
+            .Top = 10
+            .Left = 700
+            .Height = 250
+
+    End With
+
+    temp = ActiveSheet.UsedRange.Rows.Count
+    
+    nds = sh.SmartArt.AllNodes.Count
+    
+    For i = 1 To nds
+        'sh.SmartArt.AllNodes(i).TextFrame2.TextRange.Text = Cells(i + 1, 2).Value
+        sh.SmartArt.AllNodes(1).Delete
+    Next
+    
+    For i = 1 To temp - 1
+        
+    Set node = sh.SmartArt.AllNodes.Add
+    node.TextFrame2.TextRange.Text = Cells(i + 1, 2).Value & vbNewLine & Cells(i + 1, 3).Value
+ Next
+ End Sub
